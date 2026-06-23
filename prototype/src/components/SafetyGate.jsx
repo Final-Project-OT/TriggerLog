@@ -1,61 +1,90 @@
+import { Zap } from 'lucide-react'
+
 export default function SafetyGate({ onConfirm, onDismiss }) {
   return (
     <div
       role="dialog"
       aria-modal="true"
-      aria-labelledby="sg-title"
+      aria-label="אישור לפני ההיסטוריה"
       style={{
         position: 'fixed',
         inset: 0,
-        zIndex: 500,
+        background: 'rgba(0, 0, 0, 0.45)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '0 28px',
-        /* Blurred + dimmed overlay */
-        background: 'rgba(10, 16, 32, 0.60)',
-        backdropFilter: 'blur(6px)',
-        WebkitBackdropFilter: 'blur(6px)',
-        animation: 'fadeIn 200ms cubic-bezier(0.16, 1, 0.3, 1)',
+        padding: '0 var(--margin-screen)',
+        zIndex: 500,
+        animation: 'fadeIn 150ms ease-out',
       }}
     >
-      {/* Modal card */}
       <div
         style={{
-          background: '#FFFFFF',
-          borderRadius: 20,
-          padding: '24px 24px 20px',
+          background: 'var(--card-surface)',
+          borderRadius: 24,
+          padding: '32px 24px 24px',
           width: '100%',
-          maxWidth: 334,
-          boxShadow: '0 16px 48px rgba(0, 0, 0, 0.28)',
-          direction: 'rtl',
-          animation: 'slideUp 280ms cubic-bezier(0.16, 1, 0.3, 1)',
+          maxWidth: 360,
+          boxShadow: 'var(--shadow-modal)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 0,
+          animation: 'slideUp 220ms var(--ease-out)',
         }}
       >
-        {/* Body text */}
-        <p
-          id="sg-title"
-          className="body-text"
+        {/* Icon */}
+        <div
           style={{
-            color: 'var(--text-dark)',
-            textAlign: 'start',
+            width: 56,
+            height: 56,
+            borderRadius: '50%',
+            background: 'rgba(61,191,170,0.12)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
             marginBottom: 20,
           }}
         >
-          צפייה ביומן הטריגרים שלך יכולה לפעמים להיות מציפה. הוא הכי שימושי
-          כשסוקרים אותו יחד עם המטפל. האם אתה/את במקום רגוע ובטוח כרגע?
+          <Zap size={28} color="var(--teal-primary)" strokeWidth={1.75} />
+        </div>
+
+        {/* Title */}
+        <h2
+          className="heading-2"
+          style={{
+            color: 'var(--text-dark)',
+            textAlign: 'center',
+            marginBottom: 12,
+            width: '100%',
+          }}
+        >
+          לפני שממשיכים
+        </h2>
+
+        {/* Body */}
+        <p
+          className="body-text"
+          style={{
+            color: 'var(--text-muted)',
+            textAlign: 'center',
+            marginBottom: 28,
+            lineHeight: '26px',
+          }}
+        >
+          אזור ההיסטוריה מציג את כל הטריגרים שתיעדת. אם אינך מוכן/ה לראות אותם כרגע, אפשר לחזור מאוחר יותר.
         </p>
 
-        {/* Primary CTA */}
+        {/* Confirm button */}
         <button
           className="btn-primary"
           onClick={onConfirm}
-          style={{ marginBottom: 10 }}
+          style={{ marginBottom: 12 }}
         >
           אני מוכן/ה
         </button>
 
-        {/* Secondary dismiss */}
+        {/* Dismiss link */}
         <button className="btn-text" onClick={onDismiss}>
           לא עכשיו
         </button>
