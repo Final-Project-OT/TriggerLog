@@ -1,0 +1,11 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Internal AI tooling
+.superpowers/
+hebrew-rtl-best-practices/
+docs/superpowers/
+
+# Assignment brief (keep locally, not in repo)
+*.pdf
