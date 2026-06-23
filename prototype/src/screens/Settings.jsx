@@ -1,18 +1,16 @@
-import { useState } from 'react'
-import { ChevronRight, MapPin, Bell, Trash2 } from 'lucide-react'
-import BottomNav from '../components/BottomNav'
+import { useState }    from 'react'
+import { MapPin, Bell, Trash2, Share2, ChevronLeft, Info } from 'lucide-react'
+import BottomNav        from '../components/BottomNav'
 
-function Toggle({ on, onToggle, id }) {
+function Toggle({ on, onToggle }) {
   return (
     <div
-      id={id}
       className={`toggle-track${on ? ' on' : ''}`}
       onClick={onToggle}
       role="switch"
       aria-checked={on}
       tabIndex={0}
       onKeyDown={e => (e.key === ' ' || e.key === 'Enter') && onToggle()}
-      style={{ cursor: 'pointer', flexShrink: 0 }}
     >
       <div className="toggle-thumb" />
     </div>
@@ -22,19 +20,21 @@ function Toggle({ on, onToggle, id }) {
 function SectionHeader({ children }) {
   return (
     <p
-      className="caption"
+      className="section-label"
       style={{
         color: 'var(--text-muted)',
         paddingInline: 'var(--margin-screen)',
         marginBottom: 8,
-        textTransform: 'uppercase',
-        letterSpacing: '0.5px',
-        fontWeight: 600,
-        textAlign: 'start',
       }}
     >
       {children}
     </p>
+  )
+}
+
+function RowDivider() {
+  return (
+    <div style={{ height: 1, background: 'var(--divider)', marginInlineStart: 56 }} />
   )
 }
 
@@ -43,84 +43,42 @@ function SettingsRow({ icon: Icon, label, sublabel, right, onClick, danger }) {
     <div
       className="settings-row"
       onClick={onClick}
-      style={{ cursor: onClick ? 'pointer' : 'default', minHeight: sublabel ? 72 : 60 }}
+      style={{ minHeight: sublabel ? 68 : 56 }}
       tabIndex={onClick ? 0 : undefined}
       onKeyDown={onClick ? e => (e.key === 'Enter' || e.key === ' ') && onClick() : undefined}
     >
-      {/* Right side (RTL): icon + text */}
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          gap: 12,
-          flex: 1,
-          minWidth: 0,
-        }}
-      >
+      <div style={{ display: 'flex', alignItems: 'center', gap: 14, flex: 1 }}>
         {Icon && (
           <Icon
             size={20}
             strokeWidth={1.75}
-            color={danger ? '#D95252' : 'var(--sky-blue-mid)'}
+            color={danger ? 'var(--destructive)' : 'var(--teal-primary)'}
             style={{ flexShrink: 0 }}
           />
         )}
-        <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ flex: 1 }}>
           <p
             className="body-text"
-            style={{
-              color: danger ? '#D95252' : 'var(--text-dark)',
-              textAlign: 'start',
-            }}
+            style={{ color: danger ? 'var(--destructive)' : 'var(--text-dark)', textAlign: 'start' }}
           >
             {label}
           </p>
           {sublabel && (
-            <p
-              className="caption"
-              style={{
-                color: 'var(--text-muted)',
-                marginTop: 2,
-                textAlign: 'start',
-                lineHeight: '18px',
-              }}
-            >
+            <p className="caption" style={{ color: 'var(--text-muted)', textAlign: 'start', marginTop: 2 }}>
               {sublabel}
             </p>
           )}
         </div>
       </div>
-      {/* Left side (RTL): toggle / chevron */}
       {right}
     </div>
   )
 }
 
-function Card({ children, style }) {
-  return (
-    <div className="settings-card" style={style}>
-      {children}
-    </div>
-  )
-}
-
-function RowDivider() {
-  return (
-    <div
-      style={{
-        height: 1,
-        background: 'var(--divider)',
-        marginInlineStart: 52,
-      }}
-    />
-  )
-}
-
-export default function Settings({ navigate }) {
-  const [locationOn, setLocationOn]   = useState(false)
-  const [notifOn, setNotifOn]         = useState(false)
-  const [deleteStep, setDeleteStep]   = useState(0)
+export default function Settings({ navigate, activeTab }) {
+  const [locationOn,  setLocation]  = useState(false)
+  const [notifOn,     setNotif]     = useState(false)
+  const [deleteStep,  setDeleteStep] = useState(0)
 
   function handleDelete() {
     if (deleteStep === 0) {
@@ -128,93 +86,102 @@ export default function Settings({ navigate }) {
       setTimeout(() => setDeleteStep(0), 3000)
     } else {
       setDeleteStep(0)
+      // In production: clear all data here
     }
   }
 
   return (
     <div
       className="screen"
-      style={{
-        background: 'linear-gradient(175deg, #CBE2F2 0%, #D4E8F5 100%)',
-        paddingBottom: 88,
-      }}
+      style={{ background: 'var(--bg-screen)', paddingBottom: 88, overflowY: 'auto' }}
     >
       {/* Status bar */}
-      <div style={{ height: 59 }} aria-hidden="true" />
+      <div style={{ height: 44 }} aria-hidden="true" />
 
       {/* Header */}
-      <div
+      <h1
+        className="heading-1"
         style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
+          color: 'var(--text-dark)',
           paddingInline: 'var(--margin-screen)',
           marginBottom: 24,
+          marginTop: 8,
         }}
       >
-        <h1 className="heading-1" style={{ color: 'var(--text-dark)', flex: 1 }}>
-          הגדרות
-        </h1>
-        <button
-          className="icon-btn"
-          onClick={() => navigate('log')}
-          aria-label="חזרה"
-          style={{ opacity: 0.70 }}
-        >
-          <ChevronRight size={24} color="var(--text-dark)" strokeWidth={2} />
-        </button>
+        הגדרות
+      </h1>
+
+      {/* ── Section 1: Share with therapist ── */}
+      <div style={{ marginBottom: 28 }}>
+        <SectionHeader>שיתוף עם המטפל</SectionHeader>
+        <div className="settings-card">
+          <SettingsRow
+            icon={Share2}
+            label="שתף עם המטפל"
+            sublabel="הפק דוח PDF לסקירה קלינית"
+            onClick={() => navigate('reportpreview')}
+            right={<ChevronLeft size={18} color="var(--text-muted)" strokeWidth={1.75} />}
+          />
+        </div>
       </div>
 
-      {/* ── Section 1: Privacy ── */}
+      {/* ── Section 2: Preferences ── */}
       <div style={{ marginBottom: 28 }}>
-        <SectionHeader>פרטיות ונתונים</SectionHeader>
-        <Card>
+        <SectionHeader>העדפות</SectionHeader>
+        <div className="settings-card">
           <SettingsRow
             icon={MapPin}
-            label="שמור מיקום בעת תיעוד"
-            onClick={() => setLocationOn(v => !v)}
-            right={
-              <Toggle
-                on={locationOn}
-                onToggle={() => setLocationOn(v => !v)}
-              />
-            }
+            label="שמור מיקום אוטומטי"
+            onClick={() => setLocation(v => !v)}
+            right={<Toggle on={locationOn} onToggle={() => setLocation(v => !v)} />}
           />
           <RowDivider />
           <SettingsRow
             icon={Bell}
-            label="הפעל התראות"
+            label="תזכורות יומיות"
             sublabel="כבוי כברירת מחדל — התראות עלולות להיות טריגרים"
-            onClick={() => setNotifOn(v => !v)}
-            right={
-              <Toggle
-                on={notifOn}
-                onToggle={() => setNotifOn(v => !v)}
-              />
-            }
+            onClick={() => setNotif(v => !v)}
+            right={<Toggle on={notifOn} onToggle={() => setNotif(v => !v)} />}
           />
-        </Card>
+        </div>
       </div>
 
-      {/* ── Section 2: Data ── */}
-      <div>
-        <SectionHeader>הנתונים שלך</SectionHeader>
-        <Card>
+      {/* ── Section 3: Data ── */}
+      <div style={{ marginBottom: 28 }}>
+        <SectionHeader>נתונים</SectionHeader>
+        <div className="settings-card">
           <SettingsRow
             icon={Trash2}
             label={deleteStep === 1 ? 'בטוח? לחץ/י שוב לאישור' : 'מחק את כל הנתונים'}
             onClick={handleDelete}
             danger
           />
-        </Card>
+        </div>
       </div>
 
-      <BottomNav
-        activeTab="settings"
-        onHistory={() => navigate('history')}
-        onSettings={() => {}}
-      />
+      {/* ── Section 4: About ── */}
+      <div>
+        <SectionHeader>אודות</SectionHeader>
+        <div className="settings-card">
+          <SettingsRow
+            icon={Info}
+            label="על האפליקציה"
+            sublabel="TriggerLog — כלי לתיעוד טריגרים בזמן אמת"
+          />
+          <RowDivider />
+          <SettingsRow
+            icon={Info}
+            label="כתב ויתור קליני"
+            sublabel="האפליקציה אינה תחליף לטיפול מקצועי"
+          />
+          <RowDivider />
+          <SettingsRow
+            label="גרסה v1.0.0"
+          />
+        </div>
+      </div>
+
+      <BottomNav activeTab={activeTab} navigate={navigate} />
     </div>
   )
 }
