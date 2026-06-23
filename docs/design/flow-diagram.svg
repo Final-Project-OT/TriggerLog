@@ -1,0 +1,137 @@
+<svg width="820" height="400" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#2C4E8A"/>
+    </marker>
+    <marker id="arr-g" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#7A8499"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="820" height="400" fill="#F0F5FA" rx="10"/>
+
+  <!-- Title -->
+  <text x="410" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1A2540">תרשים זרימה — TriggerLog</text>
+
+  <!-- ═══ ROW 1: Screens 1–5 ═══ -->
+  <!-- Card positions: S1=x15, S2=x180, S3=x345, S4=x510, S5=x675 | y=45 h=110 -->
+
+  <!-- ── Screen 1: Splash ── -->
+  <rect x="15" y="45" width="130" height="110" rx="8" fill="#2C4E8A"/>
+  <text x="80" y="64" text-anchor="middle" font-size="8" fill="#8B9DC3">מסך 1</text>
+  <text x="80" y="80" text-anchor="middle" font-size="11.5" font-weight="bold" fill="white">מסך פתיחה</text>
+  <line x1="25" y1="87" x2="135" y2="87" stroke="#8B9DC3" stroke-width="0.5" opacity="0.6"/>
+  <text x="80" y="101" text-anchor="middle" font-size="8" fill="#D4E8F5">לוגו + שם האפליקציה</text>
+  <text x="80" y="115" text-anchor="middle" font-size="8" fill="#D4E8F5">טאגליין</text>
+  <text x="80" y="133" text-anchor="middle" font-size="7.5" fill="#8B9DC3" font-style="italic">→ אוטומטי (2 שניות)</text>
+  <text x="80" y="147" text-anchor="middle" font-size="7" fill="#8B9DC3">[ המשך ]</text>
+
+  <!-- Arrow 1→2 -->
+  <line x1="145" y1="100" x2="178" y2="100" stroke="#2C4E8A" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- ── Screen 2: Log Home (Main) ── -->
+  <rect x="180" y="45" width="130" height="110" rx="8" fill="#2C4E8A"/>
+  <text x="245" y="64" text-anchor="middle" font-size="8" fill="#8B9DC3">מסך 2 — ראשי</text>
+  <text x="245" y="80" text-anchor="middle" font-size="11.5" font-weight="bold" fill="white">מה קרה?</text>
+  <line x1="190" y1="87" x2="300" y2="87" stroke="#8B9DC3" stroke-width="0.5" opacity="0.6"/>
+  <text x="245" y="101" text-anchor="middle" font-size="7.5" fill="#D4E8F5">7 סוגי טריגר (chips)</text>
+  <text x="245" y="115" text-anchor="middle" font-size="7.5" fill="#D4E8F5">עצמה: קל / בינוני / חזק</text>
+  <text x="245" y="129" text-anchor="middle" font-size="7.5" fill="#D4E8F5">הערה קצרה (לא חובה)</text>
+  <text x="245" y="147" text-anchor="middle" font-size="7.5" font-weight="bold" fill="#4CAF82">[ תיעוד ] | היסטוריה | ⚙</text>
+
+  <!-- Arrow 2→3 (History icon tap) -->
+  <line x1="310" y1="100" x2="343" y2="100" stroke="#2C4E8A" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="326" y="93" text-anchor="middle" font-size="6.5" fill="#7A8499">היסטוריה</text>
+
+  <!-- ── Screen 3: Safety Gate ── -->
+  <rect x="345" y="45" width="130" height="110" rx="8" fill="#B8C9E0"/>
+  <text x="410" y="64" text-anchor="middle" font-size="8" fill="#2C4E8A">מסך 3</text>
+  <text x="410" y="80" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#1A2540">שאלת בטיחות</text>
+  <line x1="355" y1="87" x2="465" y2="87" stroke="#8B9DC3" stroke-width="0.5" opacity="0.6"/>
+  <text x="410" y="101" text-anchor="middle" font-size="7.5" fill="#1C2333">טקסט: האם אתה במקום</text>
+  <text x="410" y="115" text-anchor="middle" font-size="7.5" fill="#1C2333">רגוע ובטוח כרגע?</text>
+  <text x="410" y="132" text-anchor="middle" font-size="7.5" font-weight="bold" fill="#2C4E8A">[ אני מוכן/ה ]</text>
+  <text x="410" y="147" text-anchor="middle" font-size="7" fill="#7A8499">לא עכשיו → חזרה</text>
+
+  <!-- Back arrow: S3 "לא עכשיו" → S2 (curved above) -->
+  <path d="M 345 62 C 310 22 215 22 180 62" stroke="#7A8499" stroke-width="1.3" stroke-dasharray="5,3" fill="none" marker-end="url(#arr-g)"/>
+  <text x="263" y="18" text-anchor="middle" font-size="7" fill="#7A8499">לא עכשיו</text>
+
+  <!-- Arrow 3→4 -->
+  <line x1="475" y1="100" x2="508" y2="100" stroke="#2C4E8A" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="491" y="93" text-anchor="middle" font-size="6.5" fill="#7A8499">אישור</text>
+
+  <!-- ── Screen 4: History ── -->
+  <rect x="510" y="45" width="130" height="110" rx="8" fill="#1A2540" stroke="#2C4E8A" stroke-width="1.5"/>
+  <text x="575" y="64" text-anchor="middle" font-size="8" fill="#8B9DC3">מסך 4</text>
+  <text x="575" y="80" text-anchor="middle" font-size="11.5" font-weight="bold" fill="white">היסטוריה</text>
+  <line x1="520" y1="87" x2="630" y2="87" stroke="#2C4E8A" stroke-width="0.5" opacity="0.6"/>
+  <text x="575" y="101" text-anchor="middle" font-size="7.5" fill="#B8C9E0">רשימת טריגרים</text>
+  <text x="575" y="115" text-anchor="middle" font-size="7.5" fill="#B8C9E0">כרונולוגית הפוכה</text>
+  <text x="575" y="129" text-anchor="middle" font-size="7.5" fill="#8B9DC3">תאריך + סוג + עצמה</text>
+  <text x="575" y="147" text-anchor="middle" font-size="7.5" font-weight="bold" fill="#8B9DC3">[ שתף עם המטפל ]</text>
+
+  <!-- Arrow 4→5 -->
+  <line x1="640" y1="100" x2="673" y2="100" stroke="#2C4E8A" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="656" y="93" text-anchor="middle" font-size="6.5" fill="#7A8499">שתף</text>
+
+  <!-- ── Screen 5: Report Preview ── -->
+  <rect x="675" y="45" width="130" height="110" rx="8" fill="#1A2540" stroke="#2C4E8A" stroke-width="1.5"/>
+  <text x="740" y="64" text-anchor="middle" font-size="8" fill="#8B9DC3">מסך 5</text>
+  <text x="740" y="80" text-anchor="middle" font-size="11.5" font-weight="bold" fill="white">דוח לשיתוף</text>
+  <line x1="685" y1="87" x2="795" y2="87" stroke="#2C4E8A" stroke-width="0.5" opacity="0.6"/>
+  <text x="740" y="101" text-anchor="middle" font-size="7.5" fill="#B8C9E0">גרף שעות ביממה</text>
+  <text x="740" y="115" text-anchor="middle" font-size="7.5" fill="#B8C9E0">פאי: סוגי טריגר</text>
+  <text x="740" y="129" text-anchor="middle" font-size="7.5" fill="#B8C9E0">מגמת עצמה שבועית</text>
+  <text x="740" y="147" text-anchor="middle" font-size="7.5" font-weight="bold" fill="#8B9DC3">[ שלח דוח ]</text>
+
+  <!-- ═══ ROW 2: Screens 6 & 7 (below Screen 2) ═══ -->
+
+  <!-- Arrow 2→6 (down-left) -->
+  <line x1="208" y1="155" x2="175" y2="228" stroke="#2C4E8A" stroke-width="1.8" marker-end="url(#arr)"/>
+  <text x="184" y="196" text-anchor="end" font-size="7" fill="#7A8499">⚙ הגדרות</text>
+
+  <!-- Arrow 2→7 (down-right) -->
+  <line x1="282" y1="155" x2="325" y2="228" stroke="#2C4E8A" stroke-width="1.8" marker-end="url(#arr)"/>
+  <text x="318" y="196" text-anchor="start" font-size="7" fill="#7A8499">ℹ מידע</text>
+
+  <!-- ── Screen 6: Settings ── -->
+  <rect x="100" y="228" width="145" height="88" rx="8" fill="#D4E8F5" stroke="#2C4E8A" stroke-width="1"/>
+  <text x="172" y="247" text-anchor="middle" font-size="8" fill="#2C4E8A">מסך 6</text>
+  <text x="172" y="262" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#1A2540">הגדרות</text>
+  <line x1="110" y1="269" x2="235" y2="269" stroke="#B8C9E0" stroke-width="0.5" opacity="0.6"/>
+  <text x="172" y="283" text-anchor="middle" font-size="7.5" fill="#7A8499">מיקום | התראות (כבוי)</text>
+  <text x="172" y="297" text-anchor="middle" font-size="7.5" fill="#E05252">מחיקת כל הנתונים</text>
+  <text x="172" y="310" text-anchor="middle" font-size="7" fill="#7A8499">[ שמור ] | חזרה</text>
+
+  <!-- ── Screen 7: About ── -->
+  <rect x="268" y="228" width="145" height="88" rx="8" fill="#D4E8F5" stroke="#2C4E8A" stroke-width="1"/>
+  <text x="340" y="247" text-anchor="middle" font-size="8" fill="#2C4E8A">מסך 7</text>
+  <text x="340" y="262" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#1A2540">על האפליקציה</text>
+  <line x1="278" y1="269" x2="403" y2="269" stroke="#B8C9E0" stroke-width="0.5" opacity="0.6"/>
+  <text x="340" y="283" text-anchor="middle" font-size="7.5" fill="#7A8499">תיאור + כתב ויתור קליני</text>
+  <text x="340" y="297" text-anchor="middle" font-size="7.5" fill="#7A8499">קרדיטים: אפקה 2026</text>
+  <text x="340" y="310" text-anchor="middle" font-size="7" fill="#7A8499">חזרה</text>
+
+  <!-- ═══ LEGEND ═══ -->
+  <rect x="15" y="333" width="790" height="55" rx="6" fill="white" fill-opacity="0.55"/>
+
+  <!-- Legend: forward arrow -->
+  <line x1="30" y1="356" x2="65" y2="356" stroke="#2C4E8A" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="73" y="360" font-size="9" fill="#1A2540">מעבר קדימה</text>
+
+  <text x="158" y="360" font-size="10" fill="#B8C9E0">|</text>
+
+  <!-- Legend: back arrow -->
+  <line x1="168" y1="356" x2="203" y2="356" stroke="#7A8499" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-g)"/>
+  <text x="211" y="360" font-size="9" fill="#1A2540">חזרה (Back)</text>
+
+  <text x="300" y="360" font-size="10" fill="#B8C9E0">|</text>
+
+  <text x="312" y="360" font-size="8.5" fill="#7A8499">מסכים 4–7 → כפתור Back → מסך 2 (מסך ראשי)</text>
+
+  <!-- Footer notes -->
+  <text x="30" y="378" font-size="7.5" fill="#7A8499">★ אין מסך כניסה / Login — האפליקציה נפתחת ישירות למסך ראשי</text>
+  <text x="430" y="378" font-size="7.5" fill="#7A8499">★ שאלת הבטיחות (מסך 3) מופיעה בכל כניסה להיסטוריה</text>
+</svg>
