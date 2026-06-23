@@ -29,3 +29,25 @@ export function AppLogo({ width = 80, height = 80 }) {
     </svg>
   )
 }
+
+/* GlowStar — decorative star for History timeline entries */
+export function GlowStar({ size = 12 }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      {/* Outer glow */}
+      <circle cx="6" cy="6" r="5.5" fill="#5DADE2" fillOpacity="0.15" />
+      {/* Inner star */}
+      <path
+        d="M6 1 L7.5 4.5 L11 5 L8.5 7.5 L9 11 L6 9 L3 11 L3.5 7.5 L1 5 L4.5 4.5 Z"
+        fill="#5DADE2"
+      />
+    </svg>
+  )
+}
