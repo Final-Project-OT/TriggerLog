@@ -1,41 +1,74 @@
-import { Settings2 } from 'lucide-react'
-import { ConstellationIcon } from './Icons'
+import { Home, CalendarDays, Settings2 } from 'lucide-react'
 
-const ACTIVE   = '#2C4E8A'
-const INACTIVE = '#7A8499'
+const ACTIVE   = '#3DBFAA'
+const INACTIVE = '#6B8585'
 
-export default function BottomNav({ activeTab, onHistory, onSettings }) {
-  const historyColor  = activeTab === 'history'  ? ACTIVE : INACTIVE
-  const settingsColor = activeTab === 'settings' ? ACTIVE : INACTIVE
-
+export default function BottomNav({ activeTab, navigate }) {
   return (
-    <nav className="bottom-nav" aria-label="ניווט ראשי">
+    <nav
+      className="bottom-nav"
+      aria-label="ניווט ראשי"
+    >
       {/*
-        RTL direction: in a flex row with space-between,
-        the FIRST child sits at the inline-start (= RIGHT in RTL).
-        So we put History first → it appears on the RIGHT ✓
-        Settings second → it appears on the LEFT ✓
+        RTL flex-row: first child = inline-start = RIGHT side.
+        Tab order right→left: בית · היסטוריה · הגדרות
       */}
-
-      {/* History icon — RIGHT side (RTL primary position) */}
-      <button
-        className="icon-btn"
-        onClick={onHistory}
-        aria-label="היסטוריה"
-        aria-current={activeTab === 'history' ? 'page' : undefined}
-      >
-        <ConstellationIcon color={historyColor} size={24} />
-      </button>
-
-      {/* Settings icon — LEFT side (RTL secondary position) */}
-      <button
-        className="icon-btn"
-        onClick={onSettings}
-        aria-label="הגדרות"
-        aria-current={activeTab === 'settings' ? 'page' : undefined}
-      >
-        <Settings2 size={24} color={settingsColor} strokeWidth={1.75} />
-      </button>
+      <NavTab
+        icon={Home}
+        label="בית"
+        active={activeTab === 'main'}
+        onClick={() => navigate('main')}
+        ariaLabel="בית"
+      />
+      <NavTab
+        icon={CalendarDays}
+        label="היסטוריה"
+        active={activeTab === 'history'}
+        onClick={() => navigate('history')}
+        ariaLabel="היסטוריה"
+      />
+      <NavTab
+        icon={Settings2}
+        label="הגדרות"
+        active={activeTab === 'settings'}
+        onClick={() => navigate('settings')}
+        ariaLabel="הגדרות"
+      />
     </nav>
+  )
+}
+
+function NavTab({ icon: Icon, label, active, onClick, ariaLabel }) {
+  const color = active ? '#3DBFAA' : '#6B8585'
+  return (
+    <button
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 3,
+        background: 'transparent',
+        border: 'none',
+        padding: '4px 12px',
+        cursor: 'pointer',
+        WebkitTapHighlightColor: 'transparent',
+      }}
+      onClick={onClick}
+      aria-label={ariaLabel}
+      aria-current={active ? 'page' : undefined}
+    >
+      <Icon size={22} color={color} strokeWidth={active ? 2.2 : 1.75} />
+      <span
+        style={{
+          fontFamily: 'Assistant, sans-serif',
+          fontSize: 11,
+          fontWeight: active ? 700 : 400,
+          color,
+          lineHeight: '14px',
+        }}
+      >
+        {label}
+      </span>
+    </button>
   )
 }
