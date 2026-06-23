@@ -95,7 +95,7 @@ export default function ReportPreview({ navigate, activeTab }) {
               direction: 'ltr',
             }}
           >
-            PDF READY
+            PDF מוכן
           </span>
 
           <FileText
