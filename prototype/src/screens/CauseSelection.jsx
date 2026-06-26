@@ -51,7 +51,7 @@ export default function CauseSelection({ navigate, activeTab }) {
   return (
     <div
       className="screen"
-      style={{ background: 'var(--bg-screen)', paddingBottom: selected ? 140 : 100, overflowY: 'auto' }}
+      style={{ background: 'var(--bg-screen)', paddingBottom: selected ? 220 : 88, overflowY: 'auto' }}
     >
       <div style={{ height: 44 }} aria-hidden="true" />
 
@@ -85,6 +85,7 @@ export default function CauseSelection({ navigate, activeTab }) {
         <div
           style={{
             position: 'fixed', bottom: 0, left: 0, right: 0,
+            zIndex: 300,
             background: 'var(--card-surface)',
             borderTop: '1px solid var(--divider)',
             padding: '14px 20px max(20px, env(safe-area-inset-bottom))',
