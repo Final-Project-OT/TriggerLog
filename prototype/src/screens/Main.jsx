@@ -8,9 +8,10 @@ export default function Main({ navigate, activeTab }) {
   const [whacking, setWhacking] = useState(false)
   const [rippling, setRippling] = useState(false)
   const [popped,   setPopped]   = useState(false)
+  const [floating, setFloating] = useState(false)
 
   useEffect(() => {
-    const t = setTimeout(() => setPopped(true), 80)
+    const t = setTimeout(() => setPopped(true), 120)
     return () => clearTimeout(t)
   }, [])
 
@@ -18,11 +19,22 @@ export default function Main({ navigate, activeTab }) {
     if (whacking) return
     setWhacking(true)
     setRippling(true)
-    setTimeout(() => setRippling(false), 600)
+    setTimeout(() => setRippling(false), 950)
     setTimeout(() => {
       setWhacking(false)
       navigate('cause-selection')
-    }, 320)
+    }, 480)
+  }
+
+  function handleAnimationEnd(e) {
+    if (e.animationName === 'molePopUp') setFloating(true)
+  }
+
+  let buttonAnim = 'none'
+  if (popped) {
+    if (whacking)       buttonAnim = 'moleWhack 480ms cubic-bezier(0.4,0,0.8,1) forwards'
+    else if (floating)  buttonAnim = 'moleFloat 3s ease-in-out infinite'
+    else                buttonAnim = 'molePopUp 950ms cubic-bezier(0.34,1.4,0.64,1) forwards'
   }
 
   return (
@@ -59,6 +71,7 @@ export default function Main({ navigate, activeTab }) {
           tabIndex={0}
           onClick={handleTap}
           onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && handleTap()}
+          onAnimationEnd={handleAnimationEnd}
           style={{
             position: 'relative',
             width: 180,
@@ -73,27 +86,55 @@ export default function Main({ navigate, activeTab }) {
             userSelect: 'none',
             WebkitTapHighlightColor: 'transparent',
             zIndex: 2,
-            animation: !popped
-              ? 'none'
-              : whacking
-              ? 'moleWhack 280ms cubic-bezier(0.4,0,1,1) forwards'
-              : 'molePopUp 520ms cubic-bezier(0.34,1.56,0.64,1) forwards',
+            animation: buttonAnim,
           }}
         >
-          <Zap size={64} color="white" strokeWidth={1.5} />
-
-          {rippling && (
-            <span
+          {/* Idle glow pulse ring — sits behind the icon, moves with the button */}
+          {floating && !whacking && (
+            <div
               aria-hidden="true"
               style={{
                 position: 'absolute',
-                inset: -4,
+                inset: -24,
                 borderRadius: '50%',
-                border: '3px solid var(--teal-primary)',
-                animation: 'ripple 600ms ease-out forwards',
+                background: 'rgba(61,191,170,0.28)',
+                animation: 'moleGlowPulse 3s ease-in-out infinite',
                 pointerEvents: 'none',
+                zIndex: 0,
               }}
             />
+          )}
+
+          <Zap size={64} color="white" strokeWidth={1.5} style={{ position: 'relative', zIndex: 1 }} />
+
+          {/* Two staggered ripple rings on tap */}
+          {rippling && (
+            <>
+              <span
+                aria-hidden="true"
+                style={{
+                  position: 'absolute',
+                  inset: -4,
+                  borderRadius: '50%',
+                  border: '3px solid rgba(61,191,170,0.75)',
+                  animation: 'ripple 950ms ease-out forwards',
+                  pointerEvents: 'none',
+                  zIndex: 1,
+                }}
+              />
+              <span
+                aria-hidden="true"
+                style={{
+                  position: 'absolute',
+                  inset: -4,
+                  borderRadius: '50%',
+                  border: '3px solid rgba(61,191,170,0.45)',
+                  animation: 'ripple 950ms 220ms ease-out forwards',
+                  pointerEvents: 'none',
+                  zIndex: 1,
+                }}
+              />
+            </>
           )}
         </div>
 
