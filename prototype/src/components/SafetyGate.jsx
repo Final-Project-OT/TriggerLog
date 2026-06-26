@@ -1,4 +1,4 @@
-import { Zap } from 'lucide-react'
+import moleIcon from '../assets/mole.svg'
 
 export default function SafetyGate({ onConfirm, onDismiss }) {
   return (
@@ -36,17 +36,11 @@ export default function SafetyGate({ onConfirm, onDismiss }) {
         {/* Icon */}
         <div
           style={{
-            width: 56,
-            height: 56,
-            borderRadius: '50%',
-            background: 'rgba(61,191,170,0.12)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
             marginBottom: 20,
+            animation: 'molePopUp 950ms cubic-bezier(0.34,1.4,0.64,1) both',
           }}
         >
-          <Zap size={28} color="var(--teal-primary)" strokeWidth={1.75} />
+          <img src={moleIcon} alt="" aria-hidden="true" width={72} height={72} />
         </div>
 
         {/* Title */}
@@ -72,7 +66,7 @@ export default function SafetyGate({ onConfirm, onDismiss }) {
             lineHeight: '26px',
           }}
         >
-          אזור ההיסטוריה מציג את כל הטריגרים שתיעדת. אם אינך מוכן/ה לראות אותם כרגע, אפשר לחזור מאוחר יותר.
+          אזור ההיסטוריה מציג את כל הטריגרים שתיעדת. שים/י לב - צפייה בהם עלולה לעורר מחדש תגובות רגשיות. אם אינך מוכן/ה לכך כרגע, אפשר תמיד לחזור מאוחר יותר.
         </p>
 
         {/* Confirm button */}

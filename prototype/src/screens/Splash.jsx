@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { AppLogo } from '../components/Icons'
+import moleIcon from '../assets/mole.svg'
 
 export default function Splash({ onComplete }) {
   useEffect(() => {
@@ -18,8 +18,8 @@ export default function Splash({ onComplete }) {
         gap: 16,
       }}
     >
-      <div style={{ animation: 'fadeIn 500ms 100ms both' }}>
-        <AppLogo width={90} height={90} />
+      <div style={{ animation: 'molePopUp 950ms cubic-bezier(0.34,1.4,0.64,1) both' }}>
+        <img src={moleIcon} alt="" aria-hidden="true" width={110} height={110} />
       </div>
 
       <h1

@@ -70,10 +70,11 @@ export default function CauseSelection({ navigate, activeTab }) {
       </p>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--gap-card)', paddingInline: 'var(--margin-screen)' }}>
-        {CAUSES.map(cause => (
+        {CAUSES.map((cause, index) => (
           <CauseCard
             key={cause.id}
             cause={cause}
+            index={index}
             selected={selected === cause.id}
             onSelect={() => selectCause(cause.id)}
           />
@@ -121,7 +122,7 @@ export default function CauseSelection({ navigate, activeTab }) {
   )
 }
 
-function CauseCard({ cause, selected, onSelect }) {
+function CauseCard({ cause, selected, onSelect, index }) {
   const Icon = cause.icon
   const isUnknown = cause.id === 'unknown'
   return (
@@ -133,6 +134,7 @@ function CauseCard({ cause, selected, onSelect }) {
       className={`cause-card${selected ? ' selected' : ''}`}
       onClick={onSelect}
       onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && onSelect()}
+      style={{ animation: `molePopUp 600ms ${index * 55}ms cubic-bezier(0.34,1.4,0.64,1) both` }}
     >
       <div style={{ width: 48, height: 48, borderRadius: '50%', background: isUnknown ? 'rgba(107,133,133,0.10)' : 'rgba(61,191,170,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Icon size={24} color={isUnknown ? 'var(--text-muted)' : 'var(--teal-primary)'} strokeWidth={1.75} />

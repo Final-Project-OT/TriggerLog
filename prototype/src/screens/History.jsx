@@ -36,7 +36,7 @@ const WEEKLY_STATS = {
 const MONTHLY_WEEKS = [
   {
     label: 'שבוע 4 — 16–22 יוני',
-    count: 11,
+    count: 4,
     entries: [
       { id: 101, causeId: 'car_horn',  label: 'צפירת רכב',        time: '09:14', location: 'תל אביב', dateLabel: '22 יוני', note: null },
       { id: 102, causeId: 'crowd',     label: 'עומס אנשים',        time: '08:02', location: 'הרכבת',   dateLabel: '22 יוני', note: null },
@@ -46,7 +46,7 @@ const MONTHLY_WEEKS = [
   },
   {
     label: 'שבוע 3 — 9–15 יוני',
-    count: 6,
+    count: 3,
     entries: [
       { id: 201, causeId: 'siren',     label: 'אמבולנס / משטרה',   time: '14:20', location: 'רחוב',     dateLabel: '15 יוני', note: null },
       { id: 202, causeId: 'dream',     label: 'חלום / סיוט',       time: '05:30', location: null,       dateLabel: '13 יוני', note: null },
@@ -55,7 +55,7 @@ const MONTHLY_WEEKS = [
   },
   {
     label: 'שבוע 2 — 2–8 יוני',
-    count: 4,
+    count: 2,
     entries: [
       { id: 301, causeId: 'news',      label: 'חדשות / מדיה',      time: '20:00', location: null,       dateLabel: '8 יוני',  note: null },
       { id: 302, causeId: 'touch',     label: 'מגע לא צפוי',       time: '11:15', location: 'קניון',    dateLabel: '5 יוני',  note: null },
@@ -71,8 +71,8 @@ const MONTHLY_WEEKS = [
 ]
 
 const MONTHLY_STATS = {
-  trend: '+22 טריגרים החודש',
-  highlight1: { value: '22',          label: 'טריגרים החודש' },
+  trend: '+10 טריגרים החודש',
+  highlight1: { value: '10',          label: 'טריגרים החודש' },
   highlight2: { value: 'שבוע 4',      label: 'שבוע עמוס ביותר', small: true },
 }
 
@@ -329,7 +329,7 @@ export default function History({ navigate, activeTab }) {
       ]
 
   return (
-    <div className="screen" style={{ background: 'var(--bg-screen)', paddingBottom: 88, overflowY: 'auto' }}>
+    <div className="screen" style={{ background: 'var(--bg-screen)', paddingBottom: 88, overflowY: 'auto', display: 'block' }}>
       <div style={{ height: 44 }} aria-hidden="true" />
 
       {/* Header */}
@@ -402,9 +402,9 @@ export default function History({ navigate, activeTab }) {
 
       {/* Trend card */}
       <div className="card" style={{ marginInline: 'var(--margin-screen)', marginBottom: 16, padding: '16px 16px 12px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 12 }}>
           <h2 className="heading-3" style={{ color: 'var(--text-dark)' }}>מגמת תדירות</h2>
-          <span style={{ background: 'rgba(61,191,170,0.12)', color: 'var(--teal-primary)', borderRadius: 8, padding: '3px 8px', fontFamily: 'Assistant, sans-serif', fontSize: 12, fontWeight: 700 }}>
+          <span style={{ alignSelf: 'flex-start', background: 'rgba(61,191,170,0.12)', color: 'var(--teal-primary)', borderRadius: 8, padding: '3px 8px', fontFamily: 'Assistant, sans-serif', fontSize: 12, fontWeight: 700 }}>
             {stats.trend}
           </span>
         </div>

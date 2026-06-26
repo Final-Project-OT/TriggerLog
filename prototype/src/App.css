@@ -87,6 +87,13 @@
   100% { transform: scale(2.2);  opacity: 0;    }
 }
 
+@keyframes hammerHit {
+  0%   { transform: rotate(40deg);  opacity: 1; }
+  35%  { transform: rotate(-28deg); }
+  55%  { transform: rotate(-18deg); }
+  100% { transform: rotate(40deg);  opacity: 0; }
+}
+
 @keyframes flashIn {
   0%   { opacity: 0; transform: scale(0.85); }
   60%  { opacity: 1; transform: scale(1.04); }

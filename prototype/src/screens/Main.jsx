@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
-import { Zap }                  from 'lucide-react'
 import BottomNav                from '../components/BottomNav'
+import moleIcon                 from '../assets/mole.svg'
+import hammerIcon               from '../assets/hammer.svg'
 
 const LAST_LOG_TIME = 'היום, 09:14'
 
@@ -23,7 +24,7 @@ export default function Main({ navigate, activeTab }) {
     setTimeout(() => {
       setWhacking(false)
       navigate('cause-selection')
-    }, 480)
+    }, 750)
   }
 
   function handleAnimationEnd(e) {
@@ -105,7 +106,7 @@ export default function Main({ navigate, activeTab }) {
             />
           )}
 
-          <Zap size={64} color="white" strokeWidth={1.5} style={{ position: 'relative', zIndex: 1 }} />
+          <img src={moleIcon} alt="" aria-hidden="true" width={120} height={120} style={{ position: 'relative', zIndex: 1 }} />
 
           {/* Two staggered ripple rings on tap */}
           {rippling && (
@@ -137,6 +138,26 @@ export default function Main({ navigate, activeTab }) {
             </>
           )}
         </div>
+
+        {/* Hammer swings down on tap */}
+        {whacking && (
+          <img
+            src={hammerIcon}
+            alt=""
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              top: -20,
+              right: -35,
+              width: 120,
+              height: 120,
+              transformOrigin: '50% 100%',
+              animation: 'hammerHit 750ms cubic-bezier(0.4,0,0.6,1) forwards',
+              zIndex: 10,
+              pointerEvents: 'none',
+            }}
+          />
+        )}
 
         {/* Dark oval hole beneath the button */}
         <div

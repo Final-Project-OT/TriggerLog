@@ -1,4 +1,4 @@
-import { AppLogo } from '../components/Icons'
+import moleIcon from '../assets/mole.svg'
 
 export default function Onboarding({ onStart }) {
   return (
@@ -27,9 +27,15 @@ export default function Onboarding({ onStart }) {
         דלג
       </button>
 
-      {/* Logo */}
-      <div style={{ marginBottom: 28, animation: 'fadeIn 400ms both' }}>
-        <AppLogo width={72} height={72} />
+      {/* Mole illustration */}
+      <div
+        aria-hidden="true"
+        style={{
+          marginBottom: 24,
+          animation: 'molePopUp 950ms 200ms cubic-bezier(0.34,1.4,0.64,1) both',
+        }}
+      >
+        <img src={moleIcon} alt="" width={110} height={110} />
       </div>
 
       {/* Headline */}
