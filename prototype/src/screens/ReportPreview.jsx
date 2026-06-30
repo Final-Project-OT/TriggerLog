@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { ChevronRight, Download, Share2, FileText, QrCode, X } from 'lucide-react'
-import { QRCodeSVG } from 'qrcode.react'
+import qrImage from '../assets/TriggerLogQRCode.png'
 import BottomNav from '../components/BottomNav'
 
 const SECTIONS = [
@@ -313,13 +313,7 @@ export default function ReportPreview({ navigate, activeTab }) {
                 marginBottom: 16,
               }}
             >
-              <QRCodeSVG
-                value={SHARE_URL}
-                size={200}
-                bgColor="white"
-                fgColor="#1A2E2C"
-                level="M"
-              />
+              <img src={qrImage} alt="QR Code" width={200} height={200} style={{ display: 'block' }} />
             </div>
 
             <p className="caption" style={{ color: 'var(--text-muted)', textAlign: 'center' }}>

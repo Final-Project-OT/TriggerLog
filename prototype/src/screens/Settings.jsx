@@ -1,7 +1,7 @@
 import { useState }    from 'react'
 import { MapPin, Bell, Trash2, Share2, Download, Eye, Info, Mail, QrCode, X } from 'lucide-react'
 import { MessageCircle } from 'lucide-react'
-import { QRCodeSVG } from 'qrcode.react'
+import qrImage from '../assets/TriggerLogQRCode.png'
 import BottomNav        from '../components/BottomNav'
 import Dialog           from '../components/Dialog'
 import BottomSheet      from '../components/BottomSheet'
@@ -284,7 +284,7 @@ export default function Settings({ navigate, activeTab }) {
             </p>
 
             <div style={{ padding: 12, background: 'white', borderRadius: 16, boxShadow: '0 2px 12px rgba(0,0,0,0.08)', marginBottom: 16 }}>
-              <QRCodeSVG value="https://triggerlog.vercel.app" size={200} bgColor="white" fgColor="#1A2E2C" level="M" />
+              <img src={qrImage} alt="QR Code" width={200} height={200} style={{ display: 'block' }} />
             </div>
 
             <p className="caption" style={{ color: 'var(--text-muted)', textAlign: 'center' }}>
