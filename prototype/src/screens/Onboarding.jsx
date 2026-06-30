@@ -1,6 +1,7 @@
 import moleIcon from '../assets/mole.svg'
 
-export default function Onboarding({ onStart }) {
+export default function Onboarding({ onNewUser, onReturningUser }) {
+  const onStart = onNewUser
   return (
     <div
       className="screen"
@@ -16,11 +17,11 @@ export default function Onboarding({ onStart }) {
       {/* Skip */}
       <button
         className="btn-text"
-        onClick={onStart}
+        onClick={onReturningUser}
         style={{
           position: 'absolute',
           top: 52,
-          insetInlineStart: 'var(--margin-screen)',  /* LEFT in RTL */
+          insetInlineStart: 'var(--margin-screen)',
         }}
         aria-label="דלג"
       >
@@ -103,7 +104,7 @@ export default function Onboarding({ onStart }) {
       {/* Already used it */}
       <button
         className="btn-text"
-        onClick={onStart}
+        onClick={onReturningUser}
         style={{ marginTop: 12, animation: 'fadeIn 500ms 400ms both' }}
       >
         כבר השתמשתי באפליקציה

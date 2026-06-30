@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import './App.css'
-import Onboarding    from './screens/Onboarding'
-import CauseSelection from './screens/CauseSelection'
+import Onboarding      from './screens/Onboarding'
+import WhyTriggerLog   from './screens/WhyTriggerLog'
+import CauseSelection  from './screens/CauseSelection'
 import History       from './screens/History'
 import ReportPreview from './screens/ReportPreview'
 import Settings      from './screens/Settings'
@@ -36,7 +37,8 @@ export default function App() {
 
   return (
     <>
-      {screen === 'onboarding'       && <Onboarding onStart={() => setScreen('cause-selection')} />}
+      {screen === 'onboarding'       && <Onboarding onNewUser={() => setScreen('why')} onReturningUser={() => setScreen('cause-selection')} />}
+      {screen === 'why'              && <WhyTriggerLog onContinue={() => setScreen('cause-selection')} />}
       {screen === 'cause-selection'  && <CauseSelection navigate={navigate} activeTab={activeTab} />}
       {screen === 'history'          && <History navigate={navigate} activeTab={activeTab} />}
       {screen === 'reportpreview'    && <ReportPreview navigate={navigate} activeTab={activeTab} />}
