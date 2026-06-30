@@ -3,6 +3,7 @@ import {
   Volume2, Sparkles, Car, BellRing, Users, Moon,
   Flame, Hand, Megaphone, Newspaper, Calendar, CircleHelp, Mic,
 } from 'lucide-react'
+import hammerIcon        from '../assets/hammer.svg'
 import BottomNav         from '../components/BottomNav'
 import ConfirmationFlash from '../components/ConfirmationFlash'
 
@@ -26,10 +27,13 @@ export default function CauseSelection({ navigate, activeTab }) {
   const [selected,  setSelected]  = useState(null)
   const [note,      setNote]      = useState('')
   const [flash,     setFlash]     = useState(false)
+  const [hammering, setHammering] = useState(null)
 
   function selectCause(causeId) {
     setSelected(causeId)
     setNote('')
+    setHammering(causeId)
+    setTimeout(() => setHammering(null), 750)
   }
 
   function confirm() {
@@ -59,9 +63,8 @@ export default function CauseSelection({ navigate, activeTab }) {
       <div style={{ height: 44 }} aria-hidden="true" />
 
       {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingInline: 'var(--margin-screen)', marginBottom: 4, marginTop: 8 }}>
+      <div style={{ paddingInline: 'var(--margin-screen)', marginBottom: 4, marginTop: 8 }}>
         <h1 className="heading-1" style={{ color: 'var(--text-dark)' }}>מה גרם לטריגר?</h1>
-        <button className="btn-text" onClick={skip} style={{ width: 'auto' }}>דלג</button>
       </div>
 
       <p className="body-text" style={{ color: 'var(--text-muted)', paddingInline: 'var(--margin-screen)', marginBottom: 16 }}>
@@ -104,6 +107,7 @@ export default function CauseSelection({ navigate, activeTab }) {
             index={index}
             selected={selected === cause.id}
             suggested={cause.id === 'dog_bark'}
+            hammering={hammering === cause.id}
             onSelect={() => selectCause(cause.id)}
           />
         ))}
@@ -150,7 +154,7 @@ export default function CauseSelection({ navigate, activeTab }) {
   )
 }
 
-function CauseCard({ cause, selected, suggested, onSelect, index }) {
+function CauseCard({ cause, selected, suggested, hammering, onSelect, index }) {
   const Icon = cause.icon
   const isUnknown = cause.id === 'unknown'
   return (
@@ -168,6 +172,24 @@ function CauseCard({ cause, selected, suggested, onSelect, index }) {
         outline: suggested && !selected ? '2px solid rgba(61,191,170,0.55)' : undefined,
       }}
     >
+      {hammering && (
+        <img
+          src={hammerIcon}
+          alt=""
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            top: -28,
+            right: -18,
+            width: 72,
+            height: 72,
+            transformOrigin: '50% 100%',
+            animation: 'hammerHit 750ms cubic-bezier(0.4,0,0.6,1) forwards',
+            pointerEvents: 'none',
+            zIndex: 10,
+          }}
+        />
+      )}
       {suggested && (
         <span
           style={{
