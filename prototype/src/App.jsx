@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import Splash        from './screens/Splash'
 import Onboarding    from './screens/Onboarding'
-import Main          from './screens/Main'
 import CauseSelection from './screens/CauseSelection'
 import History       from './screens/History'
 import ReportPreview from './screens/ReportPreview'
@@ -10,20 +8,20 @@ import Settings      from './screens/Settings'
 import SafetyGate    from './components/SafetyGate'
 
 export default function App() {
-  const [screen, setScreen]               = useState('splash')
+  const [screen, setScreen]               = useState('onboarding')
   const [showSafetyGate, setShowSafetyGate] = useState(false)
 
-  // activeTab: determines which tab is highlighted in BottomNav
   const activeTab =
-    screen === 'history'                   ? 'history'  :
-    screen === 'settings' || screen === 'reportpreview' ? 'settings' :
+    screen === 'history'                                    ? 'history'  :
+    screen === 'settings' || screen === 'reportpreview'    ? 'settings' :
     'main'
 
   function navigate(to) {
-    if (to === 'history' && screen !== 'history') {
-      setShowSafetyGate(true)   // gate fires before every history visit
+    const dest = to === 'main' ? 'cause-selection' : to
+    if (dest === 'history' && screen !== 'history') {
+      setShowSafetyGate(true)
     } else {
-      setScreen(to)
+      setScreen(dest)
     }
   }
 
@@ -38,9 +36,7 @@ export default function App() {
 
   return (
     <>
-      {screen === 'splash'           && <Splash onComplete={() => setScreen('onboarding')} />}
-      {screen === 'onboarding'       && <Onboarding onStart={() => setScreen('main')} />}
-      {screen === 'main'             && <Main navigate={navigate} activeTab={activeTab} />}
+      {screen === 'onboarding'       && <Onboarding onStart={() => setScreen('cause-selection')} />}
       {screen === 'cause-selection'  && <CauseSelection navigate={navigate} activeTab={activeTab} />}
       {screen === 'history'          && <History navigate={navigate} activeTab={activeTab} />}
       {screen === 'reportpreview'    && <ReportPreview navigate={navigate} activeTab={activeTab} />}

@@ -4,7 +4,7 @@ export default function BottomNav({ activeTab, navigate }) {
   return (
     <nav className="bottom-nav" aria-label="ניווט ראשי">
       <NavTab icon={CalendarDays} label="היסטוריה" active={activeTab === 'history'} onClick={() => navigate('history')} />
-      <NavTab icon={Home}         label="בית"       active={activeTab === 'main'}    onClick={() => navigate('main')}    />
+      <NavTab icon={Home}         label="בית"       active={activeTab === 'main'}    onClick={() => navigate('cause-selection')}    />
       <NavTab icon={Settings2}    label="הגדרות"    active={activeTab === 'settings'} onClick={() => navigate('settings')} />
     </nav>
   )

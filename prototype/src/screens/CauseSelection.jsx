@@ -1,13 +1,15 @@
 import { useState }      from 'react'
 import {
   Volume2, Sparkles, Car, BellRing, Users, Moon,
-  Flame, Hand, Megaphone, Newspaper, Calendar, CircleHelp,
+  Flame, Hand, Megaphone, Newspaper, Calendar, CircleHelp, Mic,
 } from 'lucide-react'
 import BottomNav         from '../components/BottomNav'
 import ConfirmationFlash from '../components/ConfirmationFlash'
 
+// unknown is at index 1 so it lands top-left in the 2-col RTL grid
 const CAUSES = [
   { id: 'dog_bark',    label: 'נביחת כלב',          icon: Volume2     },
+  { id: 'unknown',     label: 'לא יודע / אחר',         icon: CircleHelp  },
   { id: 'fireworks',   label: 'זיקוקים / פיצוצים',   icon: Sparkles    },
   { id: 'car_horn',    label: 'צפירת רכב',            icon: Car         },
   { id: 'siren',       label: 'אמבולנס / משטרה',      icon: BellRing    },
@@ -18,7 +20,6 @@ const CAUSES = [
   { id: 'loud_voice',  label: 'צעקה / קול רם',         icon: Megaphone   },
   { id: 'news',        label: 'חדשות / מדיה',          icon: Newspaper   },
   { id: 'date',        label: 'תאריך / יום שנה',      icon: Calendar    },
-  { id: 'unknown',     label: 'לא יודע / אחר',         icon: CircleHelp  },
 ]
 
 export default function CauseSelection({ navigate, activeTab }) {
@@ -36,7 +37,8 @@ export default function CauseSelection({ navigate, activeTab }) {
     setFlash(true)
     setTimeout(() => {
       setFlash(false)
-      navigate('main')
+      setSelected(null)
+      setNote('')
     }, 1000)
   }
 
@@ -44,7 +46,8 @@ export default function CauseSelection({ navigate, activeTab }) {
     setFlash(true)
     setTimeout(() => {
       setFlash(false)
-      navigate('main')
+      setSelected(null)
+      setNote('')
     }, 1000)
   }
 
@@ -61,9 +64,33 @@ export default function CauseSelection({ navigate, activeTab }) {
         <button className="btn-text" onClick={skip} style={{ width: 'auto' }}>דלג</button>
       </div>
 
-      <p className="body-text" style={{ color: 'var(--text-muted)', paddingInline: 'var(--margin-screen)', marginBottom: 24 }}>
+      <p className="body-text" style={{ color: 'var(--text-muted)', paddingInline: 'var(--margin-screen)', marginBottom: 16 }}>
         לא חייב/ת לדעת. אפשר לדלג.
       </p>
+
+      {/* Audio detection suggestion banner */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+          marginInline: 'var(--margin-screen)',
+          marginBottom: 16,
+          background: 'rgba(61,191,170,0.10)',
+          border: '1px solid rgba(61,191,170,0.30)',
+          borderRadius: 12,
+          padding: '10px 14px',
+          direction: 'rtl',
+        }}
+      >
+        <Mic size={16} color="var(--teal-primary)" strokeWidth={2} />
+        <span style={{ fontFamily: 'Assistant, sans-serif', fontSize: 13, color: 'var(--teal-primary)', fontWeight: 600 }}>
+          זוהתה נביחת כלב באזור
+        </span>
+        <span style={{ fontFamily: 'Assistant, sans-serif', fontSize: 12, color: 'var(--text-muted)', marginRight: 'auto' }}>
+          הצעה אוטומטית
+        </span>
+      </div>
 
       <p className="section-label" style={{ color: 'var(--text-muted)', paddingInline: 'var(--margin-screen)', marginBottom: 12 }}>
         נפוצים
@@ -76,6 +103,7 @@ export default function CauseSelection({ navigate, activeTab }) {
             cause={cause}
             index={index}
             selected={selected === cause.id}
+            suggested={cause.id === 'dog_bark'}
             onSelect={() => selectCause(cause.id)}
           />
         ))}
@@ -98,7 +126,7 @@ export default function CauseSelection({ navigate, activeTab }) {
           <textarea
             value={note}
             onChange={e => setNote(e.target.value)}
-            placeholder="הוסף הערה אופציונלית… (עד 140 תווים)"
+            placeholder="משהו קצר, לא חייבים."
             maxLength={140}
             rows={2}
             style={{
@@ -111,7 +139,7 @@ export default function CauseSelection({ navigate, activeTab }) {
             }}
           />
           <button className="btn-primary" onClick={confirm} style={{ width: '100%' }}>
-            אשר/י טריגר
+            סיימתי
           </button>
         </div>
       )}
@@ -122,7 +150,7 @@ export default function CauseSelection({ navigate, activeTab }) {
   )
 }
 
-function CauseCard({ cause, selected, onSelect, index }) {
+function CauseCard({ cause, selected, suggested, onSelect, index }) {
   const Icon = cause.icon
   const isUnknown = cause.id === 'unknown'
   return (
@@ -134,8 +162,31 @@ function CauseCard({ cause, selected, onSelect, index }) {
       className={`cause-card${selected ? ' selected' : ''}`}
       onClick={onSelect}
       onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && onSelect()}
-      style={{ animation: `molePopUp 600ms ${index * 55}ms cubic-bezier(0.34,1.4,0.64,1) both` }}
+      style={{
+        animation: `molePopUp 600ms ${index * 55}ms cubic-bezier(0.34,1.4,0.64,1) both`,
+        position: 'relative',
+        outline: suggested && !selected ? '2px solid rgba(61,191,170,0.55)' : undefined,
+      }}
     >
+      {suggested && (
+        <span
+          style={{
+            position: 'absolute',
+            top: 6,
+            insetInlineEnd: 6,
+            background: 'var(--teal-primary)',
+            color: 'white',
+            borderRadius: 6,
+            padding: '1px 6px',
+            fontFamily: 'Assistant, sans-serif',
+            fontSize: 10,
+            fontWeight: 700,
+            lineHeight: '16px',
+          }}
+        >
+          הצעה
+        </span>
+      )}
       <div style={{ width: 48, height: 48, borderRadius: '50%', background: isUnknown ? 'rgba(107,133,133,0.10)' : 'rgba(61,191,170,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Icon size={24} color={isUnknown ? 'var(--text-muted)' : 'var(--teal-primary)'} strokeWidth={1.75} />
       </div>

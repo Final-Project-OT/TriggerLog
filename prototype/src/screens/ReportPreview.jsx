@@ -1,4 +1,6 @@
-import { ChevronRight, Download, Share2, FileText } from 'lucide-react'
+import { useState } from 'react'
+import { ChevronRight, Download, Share2, FileText, QrCode, X } from 'lucide-react'
+import { QRCodeSVG } from 'qrcode.react'
 import BottomNav from '../components/BottomNav'
 
 const SECTIONS = [
@@ -7,7 +9,11 @@ const SECTIONS = [
   { label: 'ניתוח מגמות',      desc: 'שינויים לאורך זמן'            },
 ]
 
+const SHARE_URL = 'https://prototype-rose-delta-63.vercel.app'
+
 export default function ReportPreview({ navigate, activeTab }) {
+  const [showQR, setShowQR] = useState(false)
+
   return (
     <div
       className="screen"
@@ -181,7 +187,6 @@ export default function ReportPreview({ navigate, activeTab }) {
                 {s.desc}
               </p>
             </div>
-            {/* Teal check */}
             <div
               style={{
                 width: 24,
@@ -194,15 +199,7 @@ export default function ReportPreview({ navigate, activeTab }) {
                 flexShrink: 0,
               }}
             >
-              <span
-                style={{
-                  color: 'var(--teal-primary)',
-                  fontSize: 13,
-                  fontWeight: 700,
-                }}
-              >
-                ✓
-              </span>
+              <span style={{ color: 'var(--teal-primary)', fontSize: 13, fontWeight: 700 }}>✓</span>
             </div>
           </div>
         ))}
@@ -221,12 +218,116 @@ export default function ReportPreview({ navigate, activeTab }) {
           <Download size={18} strokeWidth={2} />
           הורד דוח PDF
         </button>
-        <button className="btn-text">
+        <button className="btn-secondary" style={{ gap: 10, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <Share2 size={18} strokeWidth={2} />
           שתף עם המטפל
+        </button>
+        <button
+          className="btn-text"
+          style={{ gap: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          onClick={() => setShowQR(true)}
+        >
+          <QrCode size={18} strokeWidth={2} />
+          שתף ב־QR
         </button>
       </div>
 
       <BottomNav activeTab={activeTab} navigate={navigate} />
+
+      {/* QR Code modal */}
+      {showQR && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="QR Code לשיתוף"
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(0,0,0,0.50)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '0 var(--margin-screen)',
+            zIndex: 600,
+            animation: 'fadeIn 150ms ease-out',
+          }}
+          onClick={() => setShowQR(false)}
+        >
+          <div
+            style={{
+              background: 'var(--card-surface)',
+              borderRadius: 24,
+              padding: '28px 24px 24px',
+              width: '100%',
+              maxWidth: 320,
+              boxShadow: 'var(--shadow-modal)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 0,
+              animation: 'slideUp 220ms var(--ease-out)',
+            }}
+            onClick={e => e.stopPropagation()}
+          >
+            {/* Close button */}
+            <button
+              onClick={() => setShowQR(false)}
+              aria-label="סגור"
+              style={{
+                position: 'absolute',
+                top: 16,
+                insetInlineStart: 16,
+                background: 'rgba(0,0,0,0.06)',
+                border: 'none',
+                borderRadius: '50%',
+                width: 32,
+                height: 32,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+              }}
+            >
+              <X size={16} color="var(--text-muted)" strokeWidth={2} />
+            </button>
+
+            <h2
+              className="heading-2"
+              style={{ color: 'var(--text-dark)', textAlign: 'center', marginBottom: 6 }}
+            >
+              שתף עם המטפל
+            </h2>
+            <p
+              className="caption"
+              style={{ color: 'var(--text-muted)', textAlign: 'center', marginBottom: 20 }}
+            >
+              סרוק את הקוד כדי לצפות בדוח
+            </p>
+
+            <div
+              style={{
+                padding: 12,
+                background: 'white',
+                borderRadius: 16,
+                boxShadow: '0 2px 12px rgba(0,0,0,0.08)',
+                marginBottom: 16,
+              }}
+            >
+              <QRCodeSVG
+                value={SHARE_URL}
+                size={200}
+                bgColor="white"
+                fgColor="#1A2E2C"
+                level="M"
+              />
+            </div>
+
+            <p className="caption" style={{ color: 'var(--text-muted)', textAlign: 'center' }}>
+              TriggerLog · דוח מ-1 יוני עד 22 יוני
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

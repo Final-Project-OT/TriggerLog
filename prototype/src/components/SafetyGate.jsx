@@ -1,4 +1,4 @@
-import moleIcon from '../assets/mole.svg'
+import { TriangleAlert } from 'lucide-react'
 
 export default function SafetyGate({ onConfirm, onDismiss }) {
   return (
@@ -33,14 +33,21 @@ export default function SafetyGate({ onConfirm, onDismiss }) {
           animation: 'slideUp 220ms var(--ease-out)',
         }}
       >
-        {/* Icon */}
+        {/* Warning icon */}
         <div
           style={{
             marginBottom: 20,
+            width: 72,
+            height: 72,
+            borderRadius: '50%',
+            background: 'rgba(251,191,36,0.12)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
             animation: 'molePopUp 950ms cubic-bezier(0.34,1.4,0.64,1) both',
           }}
         >
-          <img src={moleIcon} alt="" aria-hidden="true" width={72} height={72} />
+          <TriangleAlert size={36} color="#F59E0B" strokeWidth={2} />
         </div>
 
         {/* Title */}
